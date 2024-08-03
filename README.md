@@ -37,7 +37,7 @@ To get started with the Tiplink, follow these steps:
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to the Tiplink project, please fork the repository and submit a pull request.
+Contributions are welcome! If you'd like to contribute to the Next project, please fork the repository and submit a pull request.
 
 - `github/pull_request_template.md`: Template for pull requests.
 - `github/issue_template.md`: Template for issues.
