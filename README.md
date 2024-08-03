@@ -45,4 +45,4 @@ Contributions are welcome! If you'd like to contribute to the Next project, plea
 
 ## License
 
-The Tiplink is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+The Next is licensed under the [MIT License](https://opensource.org/licenses/MIT).
