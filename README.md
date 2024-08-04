@@ -29,7 +29,7 @@ Next is a decentralized application (dApp) designed to create and manage Solana 
 
 ## Getting Started
 
-To get started with the Tiplink, follow these steps:
+To get started with the Next, follow these steps:
 
 1. **Clone the repository:** `git clone https://github.com/ankur-JA/Next.git`
 2. **Install dependencies:** `npm install` or `yarn install`
