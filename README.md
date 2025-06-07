@@ -1,48 +1,64 @@
-# Project Name: Next
+# Next
 
-## Table of Content
+Next is a simple decentralized application that creates an Ethereum wallet for each user who signs in with Google. It uses Next.js App Router, Prisma and PostgreSQL.
 
-- [Description](https://github.com/ankur-JA/Next#description)
-- [Features](https://github.com/ankur-JA/Next#features)
-- [Technologies](https://github.com/mehetab-01/Next#technologies)
-- [Getting Started](https://github.com/mehetab-01/Next#getting-started)
-- [Contributing](https://github.com/mehetab-01/Next#contributing)
-
-
-## Description
-
-Next is a decentralized application (dApp) designed to create and manage **Ethereum** crypto wallets. Users can sign up using their Google credentials, upon which an Ethereum wallet is automatically created and linked to their account. The application securely stores the user's public key, allowing seamless interaction with the Ethereum blockchain.
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Deploying to Vercel](#deploying-to-vercel)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
-- **User Registration with Google OAuth:** Secure and easy registration using Google credentials.
+- Google OAuth authentication with **next-auth**
+- Automatic Ethereum wallet generation
+- Prisma ORM with PostgreSQL
+- Tailwind CSS for styling
 
-- **Crypto Wallet Generation:** Automatic creation of an Ethereum wallet for each registered user.
-
-- **Public Key Management:** Secure storage and retrieval of user public keys.
-
-## Technologies
-
-- **Web-app:** Next.js, TypeScript
-- **Database:** PostgreSQL, Prisma ORM
-- **Authentication:** Google OAuth via next-auth
-- **Blockchain:** Ethereum
+## Tech Stack
+- **Framework:** Next.js 14 with TypeScript
+- **Database:** PostgreSQL & Prisma
+- **Auth:** Google OAuth via next-auth
+- **Blockchain:** ethers.js
 
 ## Getting Started
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+2. **Copy the sample environment file**
+   ```bash
+   cp .env.sample .env
+   ```
+   Fill in the required variables described below.
+3. **Generate Prisma client**
+   ```bash
+   npx prisma generate
+   ```
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+   The app will be available at `http://localhost:3000`.
 
-To get started with the Next, follow these steps:
+## Environment Variables
+The application uses the following variables:
+- `CLIENT_ID` – Google OAuth client ID
+- `CLIENT_SECRET` – Google OAuth client secret
+- `NEXTAUTH_SECRET` – Secret used by next-auth
+- `NEXTAUTH_URL` – Base URL of your deployed site
+- `DATABASE_URL` – PostgreSQL connection string
 
-1. **Clone the repository:** `git clone https://github.com/ankur-JA/Next.git`
-2. **Install dependencies:** `npm install` or `yarn install`
-3. **Start the application:** `npm run start` or `yarn start`
+## Deploying to Vercel
+1. Push the repository to GitHub.
+2. In Vercel, create a new project from your GitHub repo.
+3. Set the environment variables listed above in your Vercel project settings.
+4. Deploy. Vercel will automatically install dependencies and run `next build`.
 
 ## Contributing
-
-Contributions are welcome! If you'd like to contribute to the Next project, please fork the repository and submit a pull request.
-
-- `github/pull_request_template.md`: Template for pull requests.
-- `github/issue_template.md`: Template for issues.
-
+See [`contributing.md`](contributing.md) for guidelines.
 
 ## License
-
-The Next is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
