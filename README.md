@@ -11,12 +11,12 @@
 
 ## Description
 
-Next is a decentralized application (dApp) designed to create and manage Solana crypto wallets. Users can sign up using their Google credentials, upon which a crypto wallet is automatically created and linked to their account. The application securely stores the user's public key, allowing seamless interaction with the Solana blockchain.
+Next is a decentralized application (dApp) designed to create and manage **Ethereum** crypto wallets. Users can sign up using their Google credentials, upon which an Ethereum wallet is automatically created and linked to their account. The application securely stores the user's public key, allowing seamless interaction with the Ethereum blockchain.
 
 ## Features
 - **User Registration with Google OAuth:** Secure and easy registration using Google credentials.
 
-- **Crypto Wallet Generation:** Automatic creation of a Solana wallet for each registered user.
+- **Crypto Wallet Generation:** Automatic creation of an Ethereum wallet for each registered user.
 
 - **Public Key Management:** Secure storage and retrieval of user public keys.
 
@@ -25,7 +25,7 @@ Next is a decentralized application (dApp) designed to create and manage Solana 
 - **Web-app:** Next.js, TypeScript
 - **Database:** PostgreSQL, Prisma ORM
 - **Authentication:** Google OAuth via next-auth
-- **Blockchain:** Solana
+- **Blockchain:** Ethereum
 
 ## Getting Started
 
