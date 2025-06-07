@@ -1,6 +1,16 @@
+"use client"
 import Link from "next/link"
+import { useState } from "react"
 
 export function Hero() {
+  const [wallet, setWallet] = useState<{address: string, privateKey: string} | null>(null)
+  const generateWallet = async () => {
+    const res = await fetch('/api/wallet', { method: 'POST' })
+    if (res.ok) {
+      const data = await res.json()
+      setWallet(data)
+    }
+  }
   return (
     <div className="flex flex-col min-h-[100dvh] bg-zinc-800">
       <main className="flex-1">
@@ -13,9 +23,15 @@ export function Hero() {
                     Secure Your Crypto with Our Wallet Generator
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl text-white">
-                    Generate a secure, private crypto wallet in minutes with our easy-to-use tool. Powered by Google
-                    Auth for seamless, secure access.
+                    Generate a secure, private crypto wallet in minutes with our easy-to-use tool. Powered by Google Auth for seamless, secure access.
                   </p>
+                  <button onClick={generateWallet} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md">Create Ethereum Wallet</button>
+                  {wallet && (
+                    <div className="text-white mt-2 break-all">
+                      <p>Address: {wallet.address}</p>
+                      <p>Private Key: {wallet.privateKey}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
