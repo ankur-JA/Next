@@ -54,6 +54,16 @@ The application uses the following variables:
 - `NEXTAUTH_URL` – Base URL of your deployed site
 - `DATABASE_URL` – PostgreSQL connection string
 
+## Troubleshooting OAuth Loops
+If you see a URL repeatedly redirecting like `/signin?callbackUrl=/signin?...` and end up on an `error=Callback` page, check the following:
+
+1. **Callback URL** – Google must allow `http://localhost:3000/api/auth/callback/google` (or your deployed URL) in its OAuth configuration.
+2. **Callback URL on sign in** – When calling `signIn` in `src/app/signin/page.tsx`, ensure a real page is provided with `callbackUrl: '/'` so the user is redirected after login.
+3. **Matching URLs** – The value of `NEXTAUTH_URL` in your `.env` must exactly match the URL you open in the browser.
+4. **Cookies** – Verify in DevTools that session cookies are being set correctly.
+
+These steps typically resolve callback loops with NextAuth and Google OAuth.
+
 ## Contributing
 See [`contributing.md`](contributing.md) for guidelines.
 
