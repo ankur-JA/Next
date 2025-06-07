@@ -10,23 +10,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const indexStr = new URL(req.url).searchParams.get("index") ?? "0";
-  const index = parseInt(indexStr, 10);
-
-  let wallet = await prisma.wallet.findUnique({ where: { userId: session.user.id } });
-
-  if (!wallet) {
-    const newWallet = Wallet.createRandom();
-    wallet = await prisma.wallet.create({
-      data: {
-        userId: session.user.id,
-        mnemonic: newWallet.mnemonic?.phrase ?? "",
-      },
-    });
+  const body = await req.json();
+  const phrase = body.mnemonic as string | undefined;
+  if (!phrase) {
+    return NextResponse.json({ error: "Mnemonic required" }, { status: 400 });
   }
 
-  const path = `m/44'/60'/0'/0/${index}`;
-  const derived = Wallet.fromPhrase(wallet.mnemonic, path);
+  await prisma.wallet.upsert({
+    where: { userId: session.user.id },
+    update: { mnemonic: phrase },
+    create: { userId: session.user.id, mnemonic: phrase },
+  });
+
+  const path = `m/44'/60'/0'/0/0`;
+  const derived = Wallet.fromPhrase(phrase, path);
 
   return NextResponse.json({ address: derived.address, privateKey: derived.privateKey });
 }
