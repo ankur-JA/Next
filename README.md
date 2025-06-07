@@ -11,7 +11,6 @@ Next generates a fresh Ethereum wallet whenever you authenticate with Google. It
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Environment Variables](#environment-variables)
-- [Deploying to Vercel](#deploying-to-vercel)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -54,12 +53,6 @@ The application uses the following variables:
 - `NEXTAUTH_SECRET` – Secret used by next-auth
 - `NEXTAUTH_URL` – Base URL of your deployed site
 - `DATABASE_URL` – PostgreSQL connection string
-
-## Deploying to Vercel
-1. Push the repository to GitHub.
-2. In Vercel, create a new project from your GitHub repo.
-3. Set the environment variables listed above in your Vercel project settings.
-4. Deploy. Vercel will automatically install dependencies and run `next build`.
 
 ## Contributing
 See [`contributing.md`](contributing.md) for guidelines.
