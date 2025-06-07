@@ -1,6 +1,6 @@
 # Next
 
-Next is a simple decentralized application that creates an Ethereum wallet for each user who signs in with Google. It uses Next.js App Router, Prisma and PostgreSQL.
+Next is a sleek decentralized app that instantly spins up an Ethereum wallet every time you sign in with Google. Powered by Next.js App Router, Prisma and PostgreSQL, it makes exploring Web3 effortless.
 
 ## Table of Contents
 - [Features](#features)
