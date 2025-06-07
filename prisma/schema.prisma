@@ -41,6 +41,15 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  wallet        Wallet?
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  mnemonic  String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {

@@ -1,14 +1,48 @@
 "use client"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSession } from "next-auth/react"
 
 export function Hero() {
+  const { data: session } = useSession();
   const [wallet, setWallet] = useState<{address: string, privateKey: string} | null>(null)
-  const generateWallet = async () => {
-    const res = await fetch('/api/wallet', { method: 'POST' })
+  const [index, setIndex] = useState(0)
+  const [importPhrase, setImportPhrase] = useState("")
+
+  useEffect(() => {
+    if (!session?.user) return;
+    const stored = localStorage.getItem("wallet");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Date.now() - parsed.timestamp < 7 * 24 * 60 * 60 * 1000) {
+        setWallet({ address: parsed.address, privateKey: parsed.privateKey });
+        return;
+      }
+    }
+    fetchWallet(index);
+  }, [session, index]);
+
+  const fetchWallet = async (idx: number) => {
+    const res = await fetch(`/api/wallet?index=${idx}`, { method: 'POST' });
     if (res.ok) {
-      const data = await res.json()
-      setWallet(data)
+      const data = await res.json();
+      setWallet(data);
+      localStorage.setItem('wallet', JSON.stringify({ ...data, timestamp: Date.now() }));
+    }
+  }
+
+  const generateWallet = () => fetchWallet(index);
+
+  const importWallet = async () => {
+    const res = await fetch('/api/wallet/import', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mnemonic: importPhrase })
+    })
+    if (res.ok) {
+      const data = await res.json();
+      setWallet(data);
+      localStorage.setItem('wallet', JSON.stringify({ ...data, timestamp: Date.now() }));
     }
   }
   return (
@@ -25,7 +59,17 @@ export function Hero() {
                   <p className="max-w-[600px] text-muted-foreground md:text-xl text-white">
                     Generate a secure, private crypto wallet in minutes with our easy-to-use tool. Powered by Google Auth for seamless, secure access.
                   </p>
-                  <button onClick={generateWallet} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md">Create Ethereum Wallet</button>
+                  <div className="flex items-center gap-2 mt-4">
+                    <select value={index} onChange={e => setIndex(parseInt(e.target.value))} className="text-black rounded-md px-2 py-1">
+                      <option value={0}>Account 1</option>
+                      <option value={1}>Account 2</option>
+                    </select>
+                    <button onClick={generateWallet} className="px-4 py-2 bg-blue-600 text-white rounded-md">Create Wallet</button>
+                  </div>
+                  <div className="mt-4 flex flex-col gap-2">
+                    <input value={importPhrase} onChange={e => setImportPhrase(e.target.value)} placeholder="Import seed phrase" className="p-2 rounded-md text-black" />
+                    <button onClick={importWallet} className="px-4 py-2 bg-green-600 text-white rounded-md">Import</button>
+                  </div>
                   {wallet && (
                     <div className="text-white mt-2 break-all">
                       <p>Address: {wallet.address}</p>
