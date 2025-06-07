@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Wallet } from "ethers";
+import { Wallet, HDNodeWallet } from "ethers";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/db";
 import { getServerSession } from "next-auth";
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   }
 
   const path = `m/44'/60'/0'/0/${index}`;
-  const derived = Wallet.fromPhrase(wallet.mnemonic, path);
+  const derived = HDNodeWallet.fromPhrase(wallet.mnemonic, undefined, path);
 
   return NextResponse.json({ address: derived.address, privateKey: derived.privateKey });
 }
